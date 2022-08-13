@@ -1,0 +1,15 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Primeiro template</title>
+</head>
+<body>
+    <h2> Lista de post Cadastrados</h2>
+    {% for post in posts %}
+        <a href="{% url 'post_detail' post.id %}">{{post.titulo}} - {{post.autor}}</a>
+        </br>
+
+    {%endfor%}
+</body>
+</html>
