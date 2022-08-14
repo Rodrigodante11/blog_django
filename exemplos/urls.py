@@ -5,6 +5,6 @@ from django.conf import settings
 from django.conf.urls.static import static
 
 urlpatterns = [
-                  path('', views.get_bootstap, name="get_bootstap"),
+    path('', views.get_bootstap, name="get_bootstap"),
 
-              ] + static(settings.STATIC_URL, document_root=settings.STATIC_ROOT)
+] + static(settings.STATIC_URL, document_root=settings.STATIC_ROOT)
