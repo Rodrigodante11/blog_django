@@ -21,5 +21,7 @@ def post_detail(request, post_id):
 
 
 def blog(request):
-
-    return render(request, 'blog/blog.html')
+    context = {
+        'posts': Post.objects.all()
+    }
+    return render(request, 'blog/blog.html', context)
