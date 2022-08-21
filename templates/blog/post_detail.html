@@ -14,95 +14,159 @@
 </head>
 <body>
 
-    <div class="container-fluid bg-dark mb-2">
-        <div class="row justify-content-center">
-            <div class="col-xl-8">
-                <header class="bg-dark my-2">
+<div class="container-fluid bg-dark mb-2">
+    <div class="row justify-content-center">
+        <div class="col-xl-8">
+            <header class="bg-dark my-2">
 
-                    {% include 'fragments/navbar.html' %}
+                {% include 'fragments/navbar.html' %}
 
 
-                </header>
-            </div>
+            </header>
         </div>
     </div>
+</div>
 
-    <main class="bg-light">
-        <div class="container-fluid">
-            <div class="row justify-content-center">
-                <div class="col-xl-8">
-                    <article class="fs-4">
+<main class="bg-light">
+    <div class="container-fluid">
+        <div class="row justify-content-center">
+            <div class="col-xl-8">
 
-                        <hr class="my-5">
+                <hr class="my-5">
 
-                        <div class="container-fluid my-4">
-                            <div class="flex-row d-flex my-3">
-                                {{post.titulo}}
-                                <a href="#">
+                <div class="container-fluid my-4">
+                    <div class="flex-row d-flex my-3">
+                        <h2>{{post.titulo}}</h2>
+                        <a href="#" class="text-decoration-none text-dark">
+                            <span class="d-flex justify-content-center align-items-center ms-5">
+                                <span class="ms-3"
+                                      data-bs-toggle="tooltip"
+                                      data-bs-placement="top"
+                                      title="Compartilhar no Instagran">
+
+                                    <i class="fa-brands fa-instagram fa-2xl"></i>
+                                </span>
+                            </span>
+                        </a>
+
+                        <a href="#" class="text-decoration-none text-dark">
                                     <span class="d-flex justify-content-center align-items-center ms-5">
                                         <span class="ms-3"
-                                          data-bs-toggle="tooltip"
-                                          data-bs-placement="top"
-                                          title="Compartilhar no Instagran">
-
-                                            <i class="fa-brands fa-instagram fa-2xl"></i>
-                                        </span>
-                                    </span>
-                                </a>
-
-                                <a href="#">
-                                    <span class="d-flex justify-content-center align-items-center ms-5">
-                                        <span class="ms-3"
-                                          data-bs-toggle="tooltip"
-                                          data-bs-placement="top"
-                                          title="Compartilhar no Facebook">
+                                              data-bs-toggle="tooltip"
+                                              data-bs-placement="top"
+                                              title="Compartilhar no Facebook">
 
                                             <i class="fa-brands fa-facebook fa-2xl"></i>
                                         </span>
                                     </span>
-                                </a>
+                        </a>
 
-                                <a href="#">
+                        <a href="#" class="text-decoration-none text-dark">
                                     <span class="d-flex justify-content-center align-items-center ms-5">
                                         <span class="ms-3"
-                                          data-bs-toggle="tooltip"
-                                          data-bs-placement="top"
-                                          title="Compartilhar no Twitter">
+                                              data-bs-toggle="tooltip"
+                                              data-bs-placement="top"
+                                              title="Compartilhar no Twitter">
 
                                             <i class="fa-brands fa-twitter fa-2xl"></i>
                                         </span>
                                     </span>
-                                 </a>
+                        </a>
 
-                                <a href="#">
+                        <a href="#" class="text-decoration-none text-dark">
                                     <span class="d-flex justify-content-center align-items-center ms-5">
                                         <span class="ms-3"
-                                          data-bs-toggle="tooltip"
-                                          data-bs-placement="top"
-                                          title="Link">
+                                              data-bs-toggle="tooltip"
+                                              data-bs-placement="top"
+                                              title="Link">
 
                                             <i class="fa-solid fa-link fa-2xl"></i>
                                         </span>
                                     </span>
-                                </a>
+                        </a>
+                    </div>
+                </div>
+
+                <div class="row">
+                    <div class="col-12">
+                        <div class="d-flex flex-row align-items-center">
+                            <div class="rounded-circle border d-flex justify-contet-center
+                                    align-items-center bg-info" style="width: 100px ; height: 100px">
+                                <!-- Inserir Imagem aqui -->
+
+                            </div>
+                            <p>
+                                    <span class="text-muted justify-content-center">
+                                        <span class="mx-2 h5">
+                                            {{post.autor}}
+                                        </span>
+
+                                        <span>
+                                            <i class="fa-solid fa-clock"></i>
+                                            <span>
+                                                30Min
+                                            </span>
+                                        </span>
+                                        <br>
+
+                                        <span class="mx-2">
+                                            <i class="fa-solid fa-tags"></i>
+                                         </span>
+
+                                        <span>
+                                            <a href="#" class="text-decoration-none text-muted"> #Básico </a>
+                                        </span>
+
+                                        <span>
+                                            <a href="#" class="text-decoration-none text-muted"> #Python </a>
+                                        </span>
+
+                                        <br>
+
+                                         <span class="mx-2">
+                                             {{post.subtitulo}}
+                                        </span>
+                                    </span>
+                            </p>
+                        </div>
+                    </div>
+                </div>
+
+                <hr class="my-5">
+
+                <article class="fs-4 px-lg-5 mx-lg-2">
+                    {{post.conteudo|safe}}
+                </article>
+
+                <hr class="my-5">
+
+                <div class="container-fluid">
+                    <div class="row">
+                        <div class="col-12">
+                            <div class="d-flex justify-content-md-start justify-content-sm-center">
+
+                                <div class="span me-3 btn">
+                                    <i class="fa-solid fa-heart fa-2xl"></i> Curtir
+                                </div>
+
+                                <div class="span me-3 btn">
+                                    <i class="fa-solid fa-comment fa-2xl"></i> Comentar
+                                </div>
                             </div>
                         </div>
-
-                        <hr class="my-5">
-
-                        {{post.conteudo|safe}}
-                    </article>
-
+                    </div>
                 </div>
+
             </div>
         </div>
-    </main>
-    {% include 'fragments/footer.html' %}
+    </div>
+</main>
+{% include 'fragments/footer.html' %}
 
-    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.2.0/dist/js/bootstrap.bundle.min.js"
-            integrity="sha384-A3rJD856KowSb7dwlZdYEkO39Gagi7vIsF0jrRAoQmDKKtQBHUuLZ9AsSv4jD4Xa"
-            crossorigin="anonymous">
+<script src="https://cdn.jsdelivr.net/npm/bootstrap@5.2.0/dist/js/bootstrap.bundle.min.js"
+        integrity="sha384-A3rJD856KowSb7dwlZdYEkO39Gagi7vIsF0jrRAoQmDKKtQBHUuLZ9AsSv4jD4Xa"
+        crossorigin="anonymous">
 
-    </script>
+</script>
 </body>
 </html>

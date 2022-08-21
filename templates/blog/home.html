@@ -42,7 +42,7 @@
                             </a>
 
                             <div class="card-body pb-4">
-                                <a href="{% url 'post_detail' posts.0.id %}">
+                                <a href="{% url 'post_detail' posts.0.id %}" class="text-decoration-none text-dark">
                                     <h4 class="card-title">
                                         {{ posts.0.titulo }}
                                     </h4>
@@ -128,7 +128,7 @@
 
                             <div class="card-body pd-3">
                                 <h5 class="card-title">
-                                    <a href="{% url 'post_detail' post.id %}">
+                                    <a href="{% url 'post_detail' post.id %}" class="text-decoration-none text-dark">
                                         {{post.titulo}}
                                     </a>
                                 </h5>
