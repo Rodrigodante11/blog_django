@@ -18,3 +18,8 @@ def post_detail(request, post_id):
         'post': Post.objects.get(pk=post_id)
     }
     return render(request, 'blog/post_detail.html', context)
+
+
+def blog(request):
+
+    return render(request, 'blog/blog.html')
