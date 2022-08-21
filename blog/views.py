@@ -5,9 +5,9 @@ from blog.models import Post
 
 
 def home(request):
-
+    posts = Post.objects.order_by('-data_publicacao')[:5]
     context = {
-        'posts': Post.objects.all()
+        'posts': posts
     }
 
     return render(request, 'blog/home.html', context)
