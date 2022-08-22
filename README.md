@@ -1,1 +1,1 @@
-# Blog feitoi em Django
+# Blog feito em Django
