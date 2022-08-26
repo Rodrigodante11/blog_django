@@ -8,5 +8,5 @@ class FormExemplo(forms.Form):
     senha = forms.CharField(widget=forms.PasswordInput(attrs={'class': 'form-control'}),
                             label="Senha", required=True, max_length=16, min_length=6)
 
-    mensagem = forms.CharField(widget=forms.Textarea(attrs={'class': 'form-control'}),
+    mensagem = forms.CharField(widget=forms.Textarea(attrs={'class': 'form-control, mt-2'}),
                                label="Mensagem", min_length=15, max_length=1000, required=True)

@@ -84,7 +84,9 @@ def processa_formulario_v2(request):
 
     if request.method == "POST":
         form = FormExemplo(request.POST)
+        # pegando os dados preenchidos pelo usuario e retornando pra ele para nao limpar
         if form.is_valid():
+            # is valid ==True quando segue os parametros requiridos do formulario
             email = form.cleaned_data['email']
             pwd = form.cleaned_data['senha']
             msg = form.cleaned_data['mensagem']
