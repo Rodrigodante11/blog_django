@@ -1,1 +1,1 @@
-# Blog feito em Django e boostrap
+# Blog feito em Django e bootstrap
