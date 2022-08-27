@@ -35,6 +35,7 @@ INSTALLED_APPS = [
     'contas.apps.ContasConfig',
     'ckeditor',
     'ckeditor_uploader',
+    'widget_tweaks',
 ]
 
 MIDDLEWARE = [
