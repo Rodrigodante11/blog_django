@@ -1,5 +1,5 @@
 from django.shortcuts import render, redirect
-from django.contrib.auth import authenticate, login
+from django.contrib.auth import authenticate, login , logout
 from django.contrib import messages
 
 
@@ -24,3 +24,12 @@ def processa_login(request):
             return render(request, 'autenticacao/login.html', context)
 
     return render(request, 'autenticacao/login.html')
+
+
+def processa_logout(request):
+    logout(request)
+    return redirect('login')
+
+
+def processa_redirect_home(request):
+    return redirect('home')
