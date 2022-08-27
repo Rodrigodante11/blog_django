@@ -1,8 +1,8 @@
 from django.contrib.auth.models import User
 from django.shortcuts import render, redirect
 
-from .models import Perfil
-from . usuarios_forms import PerfilForm, UserForm
+# from .models import Perfil
+from . usuarios_forms import UserForm  # PerfilForm
 from django.http import HttpResponse
 import re
 from django.template.loader import render_to_string
@@ -24,27 +24,33 @@ def criar_conta(request):
     if request.method == 'POST':
 
         user = UserForm(request.POST)
-        perfil = PerfilForm(request.POST, request.FILES)
+        # perfil = PerfilForm(request.POST, request.FILES)
 
-        usr = User.objects.create_user(
-            first_name=user.cleaned_data['first_name'],
-            last_name=user.cleaned_data['last_name'],
-            username=user.cleaned_data['username'],
-            email=user.cleaned_data['email'],
-            password=user.cleaned_data['password']
-        )
+        if user.is_valid():
+            usr = User.objects.create_user(
+                first_name=user.cleaned_data['first_name'],
+                last_name=user.cleaned_data['last_name'],
+                username=user.cleaned_data['username'],
+                email=user.cleaned_data['email'],
+                password=user.cleaned_data['password']
+            )
 
-        perl = Perfil(bio=perfil.cleaned_data['bio'],
-                      foto=perfil.cleaned_data['foto'],
-                      user=usr)
+            # perl = Perfil(bio=perfil.cleaned_data['bio'],
+            #               foto=perfil.cleaned_data['foto'],
+            #               user=usr)
 
-        if perfil.is_valid() and user.is_valid():
+            perl = Perfil(user=usr)
+
+        # if perfil.is_valid() and user.is_valid():
+        # if user.is_valid():
             perl.save()
             return redirect('login')
         else:
-            return render(request, 'contas/criar_conta.html', {'form': user, 'form_perfil': perfil})
+            return render(request, 'contas/criar_conta.html', {'form': user})
+            # return render(request, 'contas/criar_conta.html', {'form': user, 'form_perfil': perfil})
     else:
-        return render(request, 'contas/criar_conta.html', {'form': UserForm(), 'form_perfil': PerfilForm()})
+        return render(request, 'contas/criar_conta.html', {'form': UserForm()})
+        # return render(request, 'contas/criar_conta.html', {'form': UserForm(), 'form_perfil': PerfilForm()})
 
 
 def htmx_valida_username(request):
@@ -56,8 +62,8 @@ def htmx_valida_username(request):
         context['error_usrname'] = 'Username disponível'
         context['cor'] = 'green'
 
-    if PerfilForm(request.POST).is_valid():
-        context['st_submit'] = ''
+    # if PerfilForm(request.POST).is_valid():
+    #     context['st_submit'] = ''
 
     str_template = render_to_string('contas/feedback_form_validation.html', context)
     return HttpResponse(str_template)
@@ -69,7 +75,7 @@ def htmx_valida_senha(request):
     pwd_confirm = request.POST.get('pwd_confirm')
     password = request.POST.get('password')
 
-    if pwd_confirm == password and PerfilForm(request.POST).is_valid():
+    if pwd_confirm == password: # and PerfilForm(request.POST).is_valid():
         context['error_pwd'] = ''
         context['st_submit'] = ''
 
@@ -85,9 +91,9 @@ def htmx_valida_email(request):
         context['usr_email'] = 'Email inválido.'
     if User.objects.filter(email=email):
         context['usr_email'] = 'Email já se encontra cadastrado.'
-    if PerfilForm(request.POST).is_valid():
-        context['usr_email'] = ''
-        context['st_submit'] = ''
+    # if PerfilForm(request.POST).is_valid():
+    #     context['usr_email'] = ''
+    #     context['st_submit'] = ''
 
     str_template = render_to_string('contas/feedback_form_validation.html', context)
     return HttpResponse(str_template)
