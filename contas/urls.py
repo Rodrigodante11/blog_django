@@ -5,8 +5,8 @@ from django.conf import settings
 from django.conf.urls.static import static
 
 urlpatterns = [
-                  path('', views.criar_conta, name='criar_conta'),
-              ] + static(settings.STATIC_URL, document_root=settings.STATIC_ROOT)
+    path('', views.criar_conta, name='criar_conta'),
+] + static(settings.STATIC_URL, document_root=settings.STATIC_ROOT)
 
 htmx_urlpatterns = [
     path('criar_conta/htmx_valida_username', views.htmx_valida_username, name='htmx_valida_username'),

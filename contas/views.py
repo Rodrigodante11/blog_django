@@ -2,15 +2,16 @@ from django.contrib.auth.models import User
 from django.shortcuts import render, redirect
 
 # from .models import Perfil
-from . usuarios_forms import UserForm  # PerfilForm
+# from . usuarios_forms import UserForm, PerfilForm
 from django.http import HttpResponse
 import re
 from django.template.loader import render_to_string
 from django.db import transaction
 
+from .usuarios_forms import PerfilForm
+
 
 def validou_email(email):
-
     regex = '^(\w+)@[a-z]+(\.[a-z]+){1,2}$'
 
     if re.search(regex, email):
@@ -19,42 +20,32 @@ def validou_email(email):
         return False
 
 
-@transaction.atomic
 def criar_conta(request):
     if request.method == 'POST':
 
-        user = UserForm(request.POST)
-        # perfil = PerfilForm(request.POST, request.FILES)
+        profile = PerfilForm(request.POST, request.FILES)
 
-        if user.is_valid():
+        if profile.is_valid():
+
             usr = User.objects.create_user(
-                first_name=user.cleaned_data['first_name'],
-                last_name=user.cleaned_data['last_name'],
-                username=user.cleaned_data['username'],
-                email=user.cleaned_data['email'],
-                password=user.cleaned_data['password']
+                first_name=profile.cleaned_data['first_name'],
+                last_name=profile.cleaned_data['last_name'],
+                username=profile.cleaned_data['username'],
+                email=profile.cleaned_data['email'],
+                password=profile.cleaned_data['password']
             )
 
-            # perl = Perfil(bio=perfil.cleaned_data['bio'],
-            #               foto=perfil.cleaned_data['foto'],
-            #               user=usr)
-
-            perl = Perfil(user=usr)
-
-        # if perfil.is_valid() and user.is_valid():
-        # if user.is_valid():
-            perl.save()
+            usr.save()
             return redirect('login')
         else:
-            return render(request, 'contas/criar_conta.html', {'form': user})
-            # return render(request, 'contas/criar_conta.html', {'form': user, 'form_perfil': perfil})
+
+            return render(request, 'contas/criar_conta.html', {'form': profile})
+
     else:
-        return render(request, 'contas/criar_conta.html', {'form': UserForm()})
-        # return render(request, 'contas/criar_conta.html', {'form': UserForm(), 'form_perfil': PerfilForm()})
+        return render(request, 'contas/criar_conta.html', {'form': PerfilForm()})
 
 
 def htmx_valida_username(request):
-
     context = {'error_usrname': 'Username indisponível', 'st_submit': 'disabled', 'cor': 'red'}
     usernameParam = request.POST.get('username')
 
@@ -62,20 +53,19 @@ def htmx_valida_username(request):
         context['error_usrname'] = 'Username disponível'
         context['cor'] = 'green'
 
-    # if PerfilForm(request.POST).is_valid():
-    #     context['st_submit'] = ''
-
+    if bool(re.search(r"\s", usernameParam)):
+        context['error_usrname'] = 'Username Nao pode ter espaco!'
+        context['cor'] = 'red'
     str_template = render_to_string('contas/feedback_form_validation.html', context)
     return HttpResponse(str_template)
 
 
 def htmx_valida_senha(request):
-
     context = {'error_pwd': 'As senhas não coincidem', 'st_submit': 'disabled', 'cor': 'red'}
     pwd_confirm = request.POST.get('pwd_confirm')
     password = request.POST.get('password')
 
-    if pwd_confirm == password: # and PerfilForm(request.POST).is_valid():
+    if pwd_confirm == password:  # and PerfilForm(request.POST).is_valid():
         context['error_pwd'] = ''
         context['st_submit'] = ''
 
@@ -91,9 +81,6 @@ def htmx_valida_email(request):
         context['usr_email'] = 'Email inválido.'
     if User.objects.filter(email=email):
         context['usr_email'] = 'Email já se encontra cadastrado.'
-    # if PerfilForm(request.POST).is_valid():
-    #     context['usr_email'] = ''
-    #     context['st_submit'] = ''
 
     str_template = render_to_string('contas/feedback_form_validation.html', context)
     return HttpResponse(str_template)

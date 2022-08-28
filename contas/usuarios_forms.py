@@ -2,10 +2,8 @@ from django.contrib.auth.models import User
 from django.forms.models import ModelForm
 from django import forms
 
-# from contas.models import Perfil
 
-
-class UserForm(ModelForm):
+class PerfilForm(ModelForm):
 
     def __init__(self, *args, **kwargs):
         super().__init__(*args, **kwargs)
@@ -29,14 +27,3 @@ class UserForm(ModelForm):
             'email': forms.EmailInput(attrs={'class': 'form-control'}),
             'password': forms.PasswordInput(attrs={'class': 'form-control'}),
         }
-
-
-# class PerfilForm(ModelForm):
-#     class Meta:
-#         model = Perfil
-#         fields = ['bio', 'foto']
-#
-#     widget = {
-#         'bio': forms.TextInput(attrs={'class': 'form-control'}),
-#         'foto': forms.ImageField()
-#     }
