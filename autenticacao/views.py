@@ -26,6 +26,15 @@ def processa_login(request):
 
 
 def processa_logout(request):
+
+    # limpando mensagem do contexto(storage) antes do logout
+    storage = messages.get_messages(request)
+
+    for message in storage:
+        pass
+
+    # adicionando uma menagem ao logout
+    messages.add_message(request=request, message="Logout Realizado com sucesso!!", level=messages.ERROR)
     logout(request)
     return redirect('login')
 
