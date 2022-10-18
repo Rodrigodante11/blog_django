@@ -1,1 +1,1 @@
-# Blog feito em Django e bootstrap
+# Blog feito em Django e bootstrap durante curso Udemy
